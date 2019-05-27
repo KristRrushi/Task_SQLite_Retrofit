@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">MobDevTask</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Project 1</string>
+    <string name="nav_header_subtitle">kristrrushi@gmail.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="clear">Clear Task 1 List</string>
+    <string name="btn_submit">Add</string>
+    <string name="btn_refresh">Refresh</string>
+    <string name="name">Name</string>
+    <string name="password">Password</string>
+    <string name="ex_edit_text">Example</string>
+    <string name="welcome">Welcome</string>
+    <string name="toolbar_name">MY APP</string>
+    <string name="dummy_text">Lorem Ipsum is simply dummy text of the printing and type</string>
+</resources>

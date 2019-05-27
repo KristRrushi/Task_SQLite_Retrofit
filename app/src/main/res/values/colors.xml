@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#444554</color>
+    <color name="colorPrimaryDark">#172121</color>
+    <color name="colorAccent">#E5D0CC</color>
+
+    <color name="darkJungleGreen">#172121</color>
+    <color name="outerSpace">#444554</color>
+    <color name="trolleyGrey">#7F7B82</color>
+    <color name="blackShadows">#BFACB5</color>
+    <color name="dustStorm">#E5D0CC</color>
+    <color name="startColor">#121D33</color>
+    <color name="centerColor">#375386</color>
+
+</resources>
