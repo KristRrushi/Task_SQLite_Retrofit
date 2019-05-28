@@ -9,8 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +18,8 @@ import com.example.mobdevtask.R;
 import com.example.mobdevtask.task2.apimodels.RandomUser;
 import com.example.mobdevtask.task2.apimodels.Result;
 import com.example.mobdevtask.task2.adapter.UserAdapterAPI;
-import com.example.mobdevtask.task2.network.RandomUserAPI;
+import com.example.mobdevtask.task2.network.RetrofitCall;
+
 import java.util.List;
 
 
@@ -28,17 +27,18 @@ import java.util.List;
 
 public class Task2Fragment extends Fragment {
 
-    public static final String BASE_URL = "https://randomuser.me";
     private UserAdapterAPI userAdapter;
     private RecyclerView recyclerView;
     private Button buttonRefresh;
     private int count = 1;
+    private RetrofitCall retrofitCall;
 
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         userAdapter = new UserAdapterAPI();
         callApi();
 
@@ -69,14 +69,9 @@ public class Task2Fragment extends Fragment {
 
     private void callApi() {
 
-       Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        retrofitCall = new RetrofitCall().getInstance();
 
-       RandomUserAPI randomUserAPI = retrofit.create(RandomUserAPI.class);
-
-       Call<RandomUser> call = randomUserAPI.getUsers(count);
+        Call<RandomUser> call = retrofitCall.getRandomUserAPI().getUsers(count);
 
         call.enqueue(new Callback<RandomUser>() {
             @Override
@@ -88,7 +83,6 @@ public class Task2Fragment extends Fragment {
 
                 List<Result> listResult = response.body().getResults();
                 userAdapter.setUsers(listResult);
-
             }
 
             @Override
@@ -96,7 +90,6 @@ public class Task2Fragment extends Fragment {
                 Toast.makeText(getContext(), t.getMessage().toUpperCase(), Toast.LENGTH_LONG ).show();
             }
         });
-
 
     }
 

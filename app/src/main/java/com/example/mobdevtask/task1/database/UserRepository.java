@@ -34,6 +34,7 @@ public class UserRepository {
 
 
     public void deleteAllUsers() {
+
         new DeleteAllUsersAsyncTask(userDao).execute();
     }
 
@@ -68,7 +69,6 @@ public class UserRepository {
 
         @Override
         protected Void doInBackground(Void... voids) {
-
             userDao.deleteAllUsers();
             return null;
         }
