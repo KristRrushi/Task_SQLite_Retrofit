@@ -2,13 +2,8 @@ package com.example.mobdevtask.task1.database;
 
 import android.app.Application;
 import android.os.AsyncTask;
-
-import com.example.mobdevtask.task1.database.UserDao;
-import com.example.mobdevtask.task1.database.UserDatabase;
 import com.example.mobdevtask.task1.model.User;
-
 import java.util.List;
-
 import androidx.lifecycle.LiveData;
 
 public class UserRepository {
