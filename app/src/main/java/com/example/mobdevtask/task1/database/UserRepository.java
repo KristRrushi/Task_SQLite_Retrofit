@@ -18,8 +18,6 @@ public class UserRepository {
         userDao = database.userDao();
         allUsers = userDao.getAllUsers();
 
-
-
     }
 
     public void insert(User user) {

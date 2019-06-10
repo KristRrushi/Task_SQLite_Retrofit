@@ -54,7 +54,12 @@ public class Tab1Fragment extends Fragment {
     View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            getInput();
+            try {
+                getInput();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             clearTextField();
 
 
@@ -63,16 +68,21 @@ public class Tab1Fragment extends Fragment {
 
 
 
-    private void getInput() {
+    private void getInput() throws Exception {
         String name = editTextName.getText().toString();
         String pass = editTextPassword.getText().toString();
 
         if(name.trim().isEmpty() || pass.trim().isEmpty()) {
             Toast.makeText(getActivity(), "Fill all views", Toast.LENGTH_LONG).show();
         }else {
-            User user = new User(name, pass);
+
+            String encryptedPass = EncrytionServices.encrypt(name, pass);
+            User user = new User(name, encryptedPass);
             userViewModel.insert(user);
         }
+
+
+
     }
 
 

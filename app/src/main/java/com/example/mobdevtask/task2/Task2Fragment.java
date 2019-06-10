@@ -69,7 +69,8 @@ public class Task2Fragment extends Fragment {
 
     private void callApi() {
 
-        retrofitCall = new RetrofitCall().getInstance();
+       // retrofitCall = new RetrofitCall().getInstance();
+        RetrofitCall retrofitCall = RetrofitCall.getInstance();
 
         Call<RandomUser> call = retrofitCall.getRandomUserAPI().getUsers(count);
 
