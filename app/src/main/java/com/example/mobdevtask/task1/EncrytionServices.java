@@ -1,9 +1,11 @@
 package com.example.mobdevtask.task1;
 
+
 import android.util.Base64;
 import java.security.MessageDigest;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
+
 
 public class EncrytionServices {
 
@@ -16,6 +18,7 @@ public class EncrytionServices {
         c.init(Cipher.ENCRYPT_MODE, key);
         byte[] encVal = c.doFinal(Password.getBytes());
         String encryptedValue = Base64.encodeToString(encVal, Base64.DEFAULT);
+
         return encryptedValue;
     }
 
@@ -38,6 +41,7 @@ public class EncrytionServices {
         SecretKeySpec secretKeySpec = new SecretKeySpec(key, AES);
         return secretKeySpec;
     }
+
 
 
 

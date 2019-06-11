@@ -10,4 +10,8 @@ public interface RandomUserAPI {
 
     @GET("/api/")
     Call<RandomUser> getUsers(@Query("results") int results);
+
+    @GET("/api/")
+    Call<RandomUser> getUsersPage(@Query("page") int page,
+                                  @Query("results") int results);
 }

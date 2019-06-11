@@ -4,23 +4,24 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+
+import androidx.lifecycle.ViewModelProviders;
+import androidx.paging.PagedList;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
+
 import com.example.mobdevtask.R;
-import com.example.mobdevtask.task2.apimodels.RandomUser;
+import com.example.mobdevtask.task2.adapter.ItemPageAdapter;
+
 import com.example.mobdevtask.task2.apimodels.Result;
 import com.example.mobdevtask.task2.adapter.UserAdapterAPI;
-import com.example.mobdevtask.task2.network.RetrofitCall;
 
-import java.util.List;
 
 
 
@@ -30,8 +31,9 @@ public class Task2Fragment extends Fragment {
     private UserAdapterAPI userAdapter;
     private RecyclerView recyclerView;
     private Button buttonRefresh;
-    private int count = 1;
-    private RetrofitCall retrofitCall;
+    ItemPageAdapter itemPageAdapter;
+    ResultViewModel resultViewModel;
+
 
 
 
@@ -40,7 +42,20 @@ public class Task2Fragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         userAdapter = new UserAdapterAPI();
-        callApi();
+        itemPageAdapter = new ItemPageAdapter(getContext());
+
+
+        resultViewModel = ViewModelProviders.of(this).get(ResultViewModel.class);
+
+
+        resultViewModel.resultPageList.observe(this, new Observer<PagedList<Result>>() {
+            @Override
+            public void onChanged(PagedList<Result> results) {
+                itemPageAdapter.submitList(results);
+            }
+        });
+
+
 
     }
 
@@ -53,13 +68,15 @@ public class Task2Fragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView_2);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(userAdapter);
+        //recyclerView.setAdapter(userAdapter);
+        recyclerView.setAdapter(itemPageAdapter);
         buttonRefresh = view.findViewById(R.id.btn_refresh);
         buttonRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                count++;
-                callApi();
+
+
+
             }
         });
 
@@ -67,31 +84,6 @@ public class Task2Fragment extends Fragment {
     }
 
 
-    private void callApi() {
 
-       // retrofitCall = new RetrofitCall().getInstance();
-        RetrofitCall retrofitCall = RetrofitCall.getInstance();
-
-        Call<RandomUser> call = retrofitCall.getRandomUserAPI().getUsers(count);
-
-        call.enqueue(new Callback<RandomUser>() {
-            @Override
-            public void onResponse(Call<RandomUser> call, Response<RandomUser> response) {
-                if(!response.isSuccessful()) {
-                    Toast.makeText(getContext(), response.code(), Toast.LENGTH_LONG).show();
-                    return;
-                }
-
-                List<Result> listResult = response.body().getResults();
-                userAdapter.setUsers(listResult);
-            }
-
-            @Override
-            public void onFailure(Call<RandomUser> call, Throwable t) {
-                Toast.makeText(getContext(), t.getMessage().toUpperCase(), Toast.LENGTH_LONG ).show();
-            }
-        });
-
-    }
 
 }
