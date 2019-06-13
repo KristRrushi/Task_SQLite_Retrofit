@@ -1,4 +1,4 @@
-package com.example.mobdevtask.task2;
+package com.example.mobdevtask.task2.pagingAPI;
 
 import com.example.mobdevtask.task2.apimodels.Result;
 
@@ -10,18 +10,18 @@ import androidx.paging.PageKeyedDataSource;
 public class ResultDataSourceFactory extends DataSource.Factory {
 
     private MutableLiveData<PageKeyedDataSource<Integer, Result>> itemLiveDataSource = new MutableLiveData<>();
+    private ResultDataSource resultDataSource;
 
     @NonNull
     @Override
     public DataSource<Integer, Result> create() {
-        ResultDataSource resultDataSource = new ResultDataSource();
-
+        resultDataSource = new ResultDataSource();
         itemLiveDataSource.postValue(resultDataSource);
-
         return resultDataSource;
     }
 
     public MutableLiveData<PageKeyedDataSource<Integer, Result>> getItemLiveDataSource() {
         return itemLiveDataSource;
     }
+
 }

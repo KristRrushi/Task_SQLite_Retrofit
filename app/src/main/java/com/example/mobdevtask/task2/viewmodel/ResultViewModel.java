@@ -1,6 +1,8 @@
-package com.example.mobdevtask.task2;
+package com.example.mobdevtask.task2.viewmodel;
 
 import com.example.mobdevtask.task2.apimodels.Result;
+import com.example.mobdevtask.task2.pagingAPI.ResultDataSource;
+import com.example.mobdevtask.task2.pagingAPI.ResultDataSourceFactory;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
@@ -11,20 +13,29 @@ import androidx.paging.PagedList;
 public class ResultViewModel extends ViewModel {
 
     LiveData<PagedList<Result>> resultPageList;
-    LiveData<PageKeyedDataSource<Integer, Result>> liveData;
+
 
     public ResultViewModel() {
         ResultDataSourceFactory resultDataSourceFactory = new ResultDataSourceFactory();
-
-        liveData = resultDataSourceFactory.getItemLiveDataSource();
-
         PagedList.Config pageListConfig =
                 (new PagedList.Config.Builder())
-                .setEnablePlaceholders(false)
-                .setPageSize(ResultDataSource.RESULT)
-                .build();
+                        .setEnablePlaceholders(false)
+                        .setInitialLoadSizeHint(10)
+                        .setPageSize(20)
+                        .build();
 
         resultPageList = (new LivePagedListBuilder(resultDataSourceFactory, pageListConfig)).build();
     }
+
+    public LiveData<PagedList<Result>> getResultPageList() {
+        return resultPageList;
+    }
+
+    public void refresh() {
+
+
+    }
+
+
 
 }
