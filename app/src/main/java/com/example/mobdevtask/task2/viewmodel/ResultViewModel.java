@@ -13,10 +13,11 @@ import androidx.paging.PagedList;
 public class ResultViewModel extends ViewModel {
 
     LiveData<PagedList<Result>> resultPageList;
+    ResultDataSourceFactory resultDataSourceFactory;
 
 
     public ResultViewModel() {
-        ResultDataSourceFactory resultDataSourceFactory = new ResultDataSourceFactory();
+        resultDataSourceFactory = new ResultDataSourceFactory();
         PagedList.Config pageListConfig =
                 (new PagedList.Config.Builder())
                         .setEnablePlaceholders(false)
@@ -33,6 +34,7 @@ public class ResultViewModel extends ViewModel {
 
     public void refresh() {
 
+        resultDataSourceFactory.getItemLiveDataSource().getValue().invalidate();
 
     }
 

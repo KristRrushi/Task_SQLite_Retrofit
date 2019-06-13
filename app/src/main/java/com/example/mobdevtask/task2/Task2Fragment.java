@@ -66,10 +66,7 @@ public class Task2Fragment extends Fragment {
         buttonRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-
-
+                resultViewModel.refresh();
             }
         });
 
